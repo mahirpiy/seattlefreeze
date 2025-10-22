@@ -9,4 +9,4 @@ In the name of over engineering and learning something new - this landing site u
 - Cloudflare Pages
 - Resend
 
-[Check us out!](seattlefreezesquash.com)
+[Check us out!](https://seattlefreezesquash.com)
