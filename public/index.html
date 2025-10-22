@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seattle Freeze Squash</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Instrument Serif', serif;
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4e8f0 50%, #c5dce6 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #1a2332;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        input[type="email"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            font-family: 'Instrument Serif', serif;
+            background: #fff;
+            border: 2px solid #d1d9e0;
+            border-radius: 50px;
+            color: #1a2332;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="email"]::placeholder {
+            color: rgba(26, 35, 50, 0.5);
+        }
+        
+        input[type="email"]:focus {
+            border-color: #00A8E1;
+            background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 168, 225, 0.15);
+        }
+        
+        button {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-family: 'Instrument Serif', serif;
+            background: #00A8E1;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+        
+        button:hover {
+            background: #0088b8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 168, 225, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 480px) {
+            .subtitle {
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Seattle Freeze</h1>
+        <p class="subtitle">Professional squash comes to Seattle in 2026</p>
+        <form class="email-form" onsubmit="return false;">
+            <input 
+                type="email" 
+                placeholder="your@email.com"
+                required
+            >
+            <button type="submit">Join email list</button>
+        </form>
+        
+        <div style="margin-top: 4rem; opacity: 0.8;">
+            <a href="/sponsors.html" style="color: #1a2332; text-decoration: none; font-size: 1rem; border-bottom: 1px solid #1a2332;">Interested in being a sponsor?</a>
+        </div>
+    </div>
+    
+    <script>
+        document.querySelector('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            const button = e.target.querySelector('button');
+            
+            button.textContent = 'Joining...';
+            button.disabled = true;
+            
+            try {
+                const response = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                
+                if (response.ok) {
+                    button.textContent = 'We\'ll be in touch!';
+                    e.target.querySelector('input').value = '';
+                } else {
+                    button.textContent = 'Try again';
+                    button.disabled = false;
+                }
+            } catch (error) {
+                button.textContent = 'Try again';
+                button.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

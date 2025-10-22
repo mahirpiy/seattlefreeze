@@ -1,0 +1,12 @@
+{
+    "name": "seattle-freeze-squash",
+    "version": "1.0.0",
+    "description": "seattle freeze squash",
+    "scripts": {
+        "dev": "wrangler pages dev ./public",
+        "deploy": "wrangler pages deploy ./public"
+    },
+    "devDependencies": {
+        "wrangler": "latest"
+    }
+}
