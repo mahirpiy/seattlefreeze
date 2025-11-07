@@ -96,7 +96,7 @@
         .intro {
             font-size: clamp(1.1rem, 2.5vw, 1.3rem);
             line-height: 1.6;
-            margin-bottom: 4rem;
+            margin-bottom: 2.5rem;
             opacity: 0.9;
             text-align: center;
             max-width: 700px;
@@ -106,50 +106,92 @@
         
         .packages-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 5rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
         }
         
-        .package-card {
+        .package-drawer {
             background: #fff;
-            border-radius: 16px;
-            padding: 2rem;
+            border-radius: 12px;
             border: 2px solid #d1d9e0;
+            overflow: hidden;
             transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
         }
         
-        .package-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 40px rgba(0, 168, 225, 0.15);
+        .package-drawer:hover {
             border-color: #00022C;
         }
         
+        .package-drawer.expanded {
+            border-color: #00022C;
+        }
+        
+        .package-header {
+            padding: 1rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .package-header:hover {
+            background: rgba(0, 2, 44, 0.02);
+        }
+        
+        .package-header-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            flex: 1;
+        }
+        
         .package-tier {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             font-weight: 400;
-            margin-bottom: 0.5rem;
             letter-spacing: 0.02em;
         }
         
         .package-price {
-            font-size: 2rem;
+            font-size: 1.3rem;
             font-weight: 400;
-            margin-bottom: 1.5rem;
             color: #00022C;
         }
         
+        .package-toggle {
+            font-size: 1.2rem;
+            color: #00022C;
+            transition: transform 0.3s ease;
+            user-select: none;
+            flex-shrink: 0;
+        }
+        
+        .package-drawer.expanded .package-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .package-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 1.25rem;
+        }
+        
+        .package-drawer.expanded .package-content {
+            max-height: 1000px;
+            padding: 0 1.25rem 1rem 1.25rem;
+        }
+        
         .package-benefits {
-            flex: 1;
             list-style: none;
+            padding-top: 1rem;
         }
         
         .package-benefits li {
             padding: 0.5rem 0;
             font-size: 0.95rem;
-            line-height: 1.5;
+            line-height: 1.6;
             opacity: 0.8;
             position: relative;
             padding-left: 1.5rem;
@@ -170,7 +212,7 @@
         .custom-section {
             max-width: 700px;
             margin: 0 auto;
-            padding-top: 4rem;
+            padding-top: 2.5rem;
             border-top: 1px solid rgba(26, 35, 50, 0.1);
         }
         
@@ -266,14 +308,45 @@
             cursor: not-allowed;
         }
         
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .packages-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+                grid-template-columns: repeat(2, 1fr);
             }
-            
+        }
+        
+        @media (max-width: 768px) {
             .container {
                 margin-top: 70px;
+            }
+            
+            .packages-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .package-header {
+                padding: 1rem 1.25rem;
+            }
+            
+            .package-header-content {
+                flex-direction: row;
+                gap: 1rem;
+            }
+            
+            .package-tier {
+                font-size: 1.2rem;
+            }
+            
+            .package-price {
+                font-size: 1.4rem;
+            }
+            
+            .package-content {
+                padding: 0 1.25rem;
+            }
+            
+            .package-drawer.expanded .package-content {
+                padding: 0 1.25rem 1rem 1.25rem;
             }
         }
         
@@ -288,10 +361,6 @@
             
             .nav-link {
                 font-size: 0.9rem;
-            }
-            
-            .package-card {
-                padding: 1.5rem;
             }
             
             button {
@@ -317,53 +386,81 @@
         </p>
         
         <div class="packages-grid">
-            <div class="package-card">
-                <div class="package-tier">Platinum</div>
-                <div class="package-price">$15,000</div>
-                <ul class="package-benefits">
-                     <li>Free tickets</li>
-                     <li>Booth at our home game event</li>
-                     <li>Your company logo signage on our home court</li>
-                     <li>Custom social media post about your company</li>
-                     <li>Company logo on our jersey with prime camera real estate</li>
-                     <li>30 second advertisement during our games</li>
-                     <li>Article on our website</li>
-                </ul>
+            <div class="package-drawer">
+                <div class="package-header">
+                    <div class="package-header-content">
+                        <div class="package-tier">Platinum</div>
+                        <div class="package-price">$15,000</div>
+                    </div>
+                    <div class="package-toggle">▼</div>
+                </div>
+                <div class="package-content">
+                    <ul class="package-benefits">
+                        <li>Free tickets</li>
+                        <li>Booth at our home game event</li>
+                        <li>Your company logo signage on our home court</li>
+                        <li>Custom social media post about your company</li>
+                        <li>Company logo on our jersey with prime camera real estate</li>
+                        <li>30 second advertisement during our games</li>
+                        <li>Article on our website</li>
+                    </ul>
+                </div>
             </div>
             
-            <div class="package-card">
-                <div class="package-tier">Gold</div>
-                <div class="package-price">$10,000</div>
-                <ul class="package-benefits">
-                    <li>Free tickets</li>
-                    <li>Your company logo signage on our home court</li>
-                    <li>Custom social media post about your company</li>
-                    <li>Your company logo on our players' skirts</li>
-                    <li>30 second advertisement during our games</li>
-                    <li>Article on our website</li>
-                </ul>
+            <div class="package-drawer">
+                <div class="package-header">
+                    <div class="package-header-content">
+                        <div class="package-tier">Gold</div>
+                        <div class="package-price">$10,000</div>
+                    </div>
+                    <div class="package-toggle">▼</div>
+                </div>
+                <div class="package-content">
+                    <ul class="package-benefits">
+                        <li>Free tickets</li>
+                        <li>Your company logo signage on our home court</li>
+                        <li>Custom social media post about your company</li>
+                        <li>Your company logo on our players' skirts</li>
+                        <li>30 second advertisement during our games</li>
+                        <li>Article on our website</li>
+                    </ul>
+                </div>
             </div>
             
-            <div class="package-card">
-                <div class="package-tier">Silver</div>
-                <div class="package-price">$5,000</div>
-                <ul class="package-benefits">
-                    <li>Free tickets</li>
-                    <li>Custom social media post about your company</li>
-                    <li>Your company logo on our players' jerseys</li>
-                    <li>Company logo outside of our home court</li>
-                    <li>Article on our website</li>
-                </ul>
+            <div class="package-drawer">
+                <div class="package-header">
+                    <div class="package-header-content">
+                        <div class="package-tier">Silver</div>
+                        <div class="package-price">$5,000</div>
+                    </div>
+                    <div class="package-toggle">▼</div>
+                </div>
+                <div class="package-content">
+                    <ul class="package-benefits">
+                        <li>Free tickets</li>
+                        <li>Custom social media post about your company</li>
+                        <li>Your company logo on our players' jerseys</li>
+                        <li>Company logo outside of our home court</li>
+                        <li>Article on our website</li>
+                    </ul>
+                </div>
             </div>
             
-            <div class="package-card">
-                <div class="package-tier">Bronze</div>
-                <div class="package-price">$2,500</div>
-                <ul class="package-benefits">
-                    <li>Free tickets</li>
-                    <li>Custom social media post about your company</li>
-                    <li>Company logo outside of our home court</li>
-                </ul>
+            <div class="package-drawer">
+                <div class="package-header">
+                    <div class="package-header-content">
+                        <div class="package-tier">Bronze</div>
+                        <div class="package-price">$2,500</div>
+                    </div>
+                    <div class="package-toggle">▼</div>
+                </div>
+                <div class="package-content">
+                    <ul class="package-benefits">
+                        <li>Free tickets</li>
+                        <li>Custom social media post about your company</li>
+                        <li>Company logo outside of our home court</li>
+                    </ul>
+                </div>
             </div>
         </div>
         
@@ -420,6 +517,32 @@
     </div>
     
     <script>
+        // Package drawer toggle functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const drawers = document.querySelectorAll('.package-drawer');
+            
+            drawers.forEach(drawer => {
+                const header = drawer.querySelector('.package-header');
+                if (header) {
+                    header.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        // Close all other drawers
+                        drawers.forEach(otherDrawer => {
+                            if (otherDrawer !== drawer) {
+                                otherDrawer.classList.remove('expanded');
+                            }
+                        });
+                        
+                        // Toggle the clicked drawer
+                        drawer.classList.toggle('expanded');
+                    });
+                }
+            });
+        });
+        
+        // Form submission
         document.getElementById('sponsorForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const button = e.target.querySelector('button');
