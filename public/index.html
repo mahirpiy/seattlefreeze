@@ -26,6 +26,62 @@
             color: #00022C;
         }
         
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            background: rgba(232, 244, 248, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 2, 44, 0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: #00022C;
+            text-decoration: none;
+            font-size: 1rem;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            opacity: 1;
+        }
+        
+        .nav-link.active {
+            opacity: 1;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #00022C;
+        }
+        
         .container {
             max-width: 800px;
             width: 100%;
@@ -179,6 +235,20 @@
             }
         }
         
+        @media (max-width: 600px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+            }
+        }
+        
         @media (max-width: 480px) {
             .logo {
                 margin-bottom: 1.5rem;
@@ -193,6 +263,14 @@
     </style>
 </head>
 <body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="/" class="nav-link active">Home</a>
+                <a href="/sponsors.html" class="nav-link">Sponsorships</a>
+            </div>
+        </div>
+    </nav>
     <div class="container">
         <img src="/assets/logos/circle-primary.png" alt="Seattle Freeze Logo" class="logo">
         <p class="subtitle">The first professional squash team on the West Coast.</p>
@@ -206,9 +284,6 @@
             <button type="submit">Join email list</button>
         </form>
         
-        <div style="margin-top: 4rem; opacity: 0.8;">
-            <a href="/sponsors.html" style="color: #00022C; text-decoration: none; font-size: 1rem; border-bottom: 1px solid #00022C;">Interested in being a sponsor?</a>
-        </div>
         
         <div class="social-links" style="margin-top: 2rem;">
             <a href="https://instagram.com/seattlefreezesquash" target="_blank" rel="noopener noreferrer" class="social-link">
