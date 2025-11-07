@@ -41,8 +41,22 @@
             max-width: 1200px;
             width: 100%;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
+        }
+        
+        .nav-logo {
+            height: 2rem;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-logo:hover {
+            opacity: 0.8;
+        }
+        
+        .nav-logo img {
+            height: 100%;
+            width: auto;
         }
         
         .nav-links {
@@ -355,6 +369,10 @@
                 padding: 1rem 1.5rem;
             }
             
+            .nav-logo {
+                height: 1.5rem;
+            }
+            
             .nav-links {
                 gap: 1.5rem;
             }
@@ -372,6 +390,9 @@
 <body>
     <nav>
         <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <img src="/assets/logos/wordmark.png" alt="Seattle Freeze">
+            </a>
             <div class="nav-links">
                 <a href="/" class="nav-link">Home</a>
                 <a href="/sponsors.html" class="nav-link active">Sponsorships</a>
