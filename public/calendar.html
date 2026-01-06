@@ -135,6 +135,31 @@
             letter-spacing: -0.02em;
             line-height: 1.1;
             text-align: center;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .calendar-grid {
@@ -142,6 +167,7 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         .calendar-event {
@@ -199,6 +225,7 @@
 
         .event-details.active {
             display: block;
+            animation: fadeInUp 0.4s ease-out;
         }
 
         .event-details h2 {

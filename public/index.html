@@ -193,17 +193,28 @@
 
         /* Sponsors Section */
         .sponsors-section {
-            margin-top: 2.5rem;
+            margin-top: 2rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 2.5rem;
+            gap: 2rem;
+            padding-bottom: 2rem;
         }
 
         .sponsor-link {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .sponsor-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #00022C;
+            opacity: 0.6;
         }
 
         .sponsor-logo {
@@ -430,11 +441,13 @@
         </p>
 
         <div class="sponsors-section">
-            <a href="https://www.nslsport.com" target="_blank" rel="noopener noreferrer" class="sponsor-link">
-                <img src="/assets/logos/nsl-logo.png" alt="National Squash League" class="sponsor-logo">
-            </a>
             <a href="https://www.sacdt.com" target="_blank" rel="noopener noreferrer" class="sponsor-link">
+                <span class="sponsor-label">Facility Sponsor</span>
                 <img src="/assets/logos/sac-logo.png" alt="Seattle Athletic Club Downtown" class="sponsor-logo">
+            </a>
+            <a href="https://elevatepartners.info/" target="_blank" rel="noopener noreferrer" class="sponsor-link">
+                <span class="sponsor-label">Bronze Sponsor</span>
+                <img src="/assets/logos/elevate-logo.png" alt="Elevate Consulting" class="sponsor-logo">
             </a>
         </div>
     </div>
