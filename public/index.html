@@ -234,6 +234,14 @@
             filter: grayscale(0%);
         }
 
+        .sac-logo {
+            filter: grayscale(100%) invert(1);
+        }
+
+        .sac-logo:hover {
+            filter: grayscale(0%) invert(1);
+        }
+
         /* Footer */
         footer {
             position: fixed;
@@ -448,7 +456,8 @@
         <div class="sponsors-section">
             <a href="https://www.sacdt.com" target="_blank" rel="noopener noreferrer" class="sponsor-link">
                 <span class="sponsor-label">Facility Sponsor</span>
-                <img src="/assets/logos/sac-logo.png" alt="Seattle Athletic Club Downtown" class="sponsor-logo">
+                <img src="/assets/logos/sac-logo.png" alt="Seattle Athletic Club Downtown"
+                    class="sponsor-logo sac-logo">
             </a>
             <a href="https://elevatepartners.info/" target="_blank" rel="noopener noreferrer" class="sponsor-link">
                 <span class="sponsor-label">Bronze Sponsor</span>
