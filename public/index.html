@@ -220,17 +220,18 @@
         }
 
         .sponsor-logo {
-            width: clamp(80px, 12vw, 120px);
-            height: clamp(80px, 12vw, 120px);
-            min-width: 80px;
-            min-height: 80px;
+            display: block;
+            width: 100px;
+            height: 100px;
             object-fit: contain;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
+            opacity: 0.8;
+            filter: grayscale(100%);
+            transition: opacity 0.3s ease, filter 0.3s ease;
         }
 
         .sponsor-logo:hover {
             opacity: 1;
+            filter: grayscale(0%);
         }
 
         /* Footer */
