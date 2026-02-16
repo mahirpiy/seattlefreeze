@@ -21,8 +21,8 @@
             background: linear-gradient(135deg, #e8f4f8 0%, #d4e8f0 50%, #c5dce6 100%);
             min-height: 100vh;
             padding: 40px 20px;
-            padding-bottom: 100px;
-            color: #1a2332;
+            padding-bottom: 120px;
+            color: #00022C;
         }
 
         nav {
@@ -123,7 +123,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             margin-top: 80px;
         }
@@ -131,11 +131,20 @@
         h1 {
             font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 400;
-            margin-bottom: 3rem;
+            margin-bottom: 1rem;
             letter-spacing: -0.02em;
             line-height: 1.1;
             text-align: center;
             animation: fadeInDown 0.8s ease-out;
+        }
+
+        .calendar-subtitle {
+            text-align: center;
+            font-size: 1.15rem;
+            font-style: italic;
+            opacity: 0.7;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out 0.1s both;
         }
 
         @keyframes fadeInDown {
@@ -162,64 +171,131 @@
             }
         }
 
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+        .event-list {
+            list-style: none;
             animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
-        .calendar-event {
-            background: #fff;
-            border-radius: 12px;
-            border: 2px solid #d1d9e0;
-            padding: 2rem;
+        .event-row {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 1.5rem 0.25rem;
+            border-bottom: 1px solid rgba(0, 2, 44, 0.08);
             transition: all 0.3s ease;
             cursor: pointer;
         }
 
-        .calendar-event:hover {
-            border-color: #00022C;
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 2, 44, 0.15);
+        .event-row:first-child {
+            border-top: 1px solid rgba(0, 2, 44, 0.08);
         }
 
-        .calendar-event.active {
-            border-color: #00022C;
+        .event-row:hover {
+            padding-left: 1rem;
+            padding-right: 0.5rem;
             background: rgba(0, 2, 44, 0.02);
+            border-radius: 8px;
+            border-color: transparent;
+        }
+
+        .event-row:hover + .event-row {
+            border-top-color: transparent;
+        }
+
+        .event-row.active {
+            padding-left: 1rem;
+            background: rgba(0, 2, 44, 0.03);
+            border-radius: 8px;
+            border-color: transparent;
+        }
+
+        .event-row.active + .event-row {
+            border-top-color: transparent;
         }
 
         .event-date {
-            font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 1rem;
-            color: #00022C;
-            letter-spacing: 0.02em;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.5;
+            min-width: 140px;
+            flex-shrink: 0;
+        }
+
+        .event-info {
+            flex: 1;
+            min-width: 0;
         }
 
         .event-title {
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             font-weight: 400;
-            margin-bottom: 0.75rem;
-            color: #1a2332;
+            color: #00022C;
             line-height: 1.3;
         }
 
         .event-location {
-            font-size: 1rem;
-            opacity: 0.8;
-            color: #1a2332;
+            font-size: 0.95rem;
+            opacity: 0.6;
             font-style: italic;
+            margin-top: 0.15rem;
         }
 
+        .event-arrow {
+            opacity: 0.3;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .event-row:hover .event-arrow {
+            opacity: 0.7;
+            transform: translateX(3px);
+        }
+
+        /* Past / struck-through event */
+        .event-row.past {
+            cursor: default;
+        }
+
+        .event-row.past .event-title {
+            text-decoration: line-through;
+            text-decoration-color: #c0392b;
+            text-decoration-thickness: 2px;
+            opacity: 0.5;
+        }
+
+        .event-row.past .event-date,
+        .event-row.past .event-location {
+            opacity: 0.3;
+        }
+
+        .event-row.past .event-link {
+            font-size: 0.85rem;
+            color: #00022C;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+            text-decoration: none;
+            border-bottom: 1px solid currentColor;
+            margin-top: 0.25rem;
+            display: inline-block;
+        }
+
+        .event-row.past .event-link:hover {
+            opacity: 0.8;
+        }
+
+        .event-row.past:hover {
+            background: transparent;
+            padding-left: 0.25rem;
+            border-radius: 0;
+            border-color: rgba(0, 2, 44, 0.08);
+        }
+
+        /* Expandable detail panel */
         .event-details {
-            max-width: 800px;
-            margin: 3rem auto;
-            padding: 2.5rem;
-            background: #fff;
-            border-radius: 12px;
-            border: 2px solid #d1d9e0;
+            max-width: 900px;
+            margin: 1.5rem 0;
+            padding: 1.5rem 1rem;
             display: none;
         }
 
@@ -228,19 +304,11 @@
             animation: fadeInUp 0.4s ease-out;
         }
 
-        .event-details h2 {
-            font-size: clamp(2rem, 4vw, 2.5rem);
-            font-weight: 400;
-            margin-bottom: 1.5rem;
-            color: #00022C;
-            letter-spacing: -0.02em;
-        }
-
         .event-details p {
-            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-size: 1.1rem;
             line-height: 1.6;
-            color: #1a2332;
-            opacity: 0.9;
+            opacity: 0.8;
+            font-style: italic;
         }
 
         /* Footer */
@@ -325,13 +393,19 @@
                 margin-top: 70px;
             }
 
-            .calendar-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+            .event-row {
+                flex-wrap: wrap;
+                gap: 0.25rem;
+                padding: 1.25rem 0.25rem;
             }
 
-            .calendar-event {
-                padding: 1.5rem;
+            .event-date {
+                width: 100%;
+                min-width: unset;
+            }
+
+            .event-arrow {
+                display: none;
             }
         }
 
@@ -350,6 +424,17 @@
 
             .nav-link {
                 font-size: 0.9rem;
+            }
+
+            .nav-social-links {
+                margin-left: 0.5rem;
+                padding-left: 1rem;
+                gap: 0.75rem;
+            }
+
+            .nav-social-link svg {
+                width: 16px;
+                height: 16px;
             }
 
             footer {
@@ -382,6 +467,7 @@
             </a>
             <div class="nav-links">
                 <a href="/" class="nav-link">Home</a>
+                <a href="/roster.html" class="nav-link">Roster</a>
                 <a href="/calendar.html" class="nav-link active">Calendar</a>
                 <a href="https://m4customs.com/collections/seattle-freeze" class="nav-link" target="_blank"
                     rel="noopener noreferrer">Merchandise</a>
@@ -408,29 +494,40 @@
     </nav>
     <div class="container">
         <h1>Calendar</h1>
+        <p class="calendar-subtitle">2026 Season</p>
 
-        <div class="calendar-grid">
-            <div class="calendar-event" data-event="draft">
-                <div class="event-date">Saturday, January 17th 2026</div>
-                <div class="event-title">NSL Draft</div>
-                <div class="event-location">Cleveland, OH</div>
-            </div>
-
-            <div class="calendar-event" data-event="sono">
-                <div class="event-date">Saturday, February 28th 2026</div>
-                <div class="event-title">Freeze @ Sono Sharks</div>
-                <div class="event-location">MSquash - Norwalk, CT</div>
-            </div>
-
-            <div class="calendar-event" data-event="beacons">
-                <div class="event-date">Sunday, April 19th 2026</div>
-                <div class="event-title">Freeze vs. Lake Erie Beacons</div>
-                <div class="event-location">Seattle Athletic Club - Seattle, WA</div>
-            </div>
-        </div>
+        <ul class="event-list">
+            <li class="event-row past">
+                <div class="event-date">Jan 17, 2026</div>
+                <div class="event-info">
+                    <div class="event-title">NSL Draft</div>
+                    <div class="event-location">Cleveland, OH</div>
+                    <a href="/roster.html" class="event-link">View roster</a>
+                </div>
+            </li>
+            <li class="event-row" data-event="sono">
+                <div class="event-date">Feb 28, 2026</div>
+                <div class="event-info">
+                    <div class="event-title">Freeze @ Sono Sharks</div>
+                    <div class="event-location">MSquash &mdash; Norwalk, CT</div>
+                </div>
+                <div class="event-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+            </li>
+            <li class="event-row" data-event="beacons">
+                <div class="event-date">Apr 19, 2026</div>
+                <div class="event-info">
+                    <div class="event-title">Freeze vs. Lake Erie Beacons</div>
+                    <div class="event-location">Seattle Athletic Club &mdash; Seattle, WA</div>
+                </div>
+                <div class="event-arrow">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+            </li>
+        </ul>
 
         <div class="event-details" id="eventDetails">
-            <h2 id="eventDetailsTitle"></h2>
             <p id="eventDetailsText"></p>
         </div>
     </div>
@@ -446,42 +543,37 @@
 
     <script>
         const eventData = {
-            draft: {
-                title: 'NSL Draft',
-                description: 'We\'ll be drafting the first ever team members of the Freeze. The draft format is a snake-style, stay tuned to find out what pick we get!'
-            },
             sono: {
-                title: 'Match @ Sono Sharks',
                 description: 'The Freeze play their inaugural match against the Sono Sharks in Connecticut.'
             },
             beacons: {
-                title: 'Match vs. Lake Erie Beacons',
                 description: 'The Freeze play the first ever professional squash game on the West Coast when they host the Lake Erie Beacons.'
             }
         };
 
-        document.querySelectorAll('.calendar-event').forEach(event => {
-            event.addEventListener('click', () => {
-                // Remove active class from all events
-                document.querySelectorAll('.calendar-event').forEach(e => e.classList.remove('active'));
-
-                // Add active class to clicked event
-                event.classList.add('active');
-
-                // Get event data
-                const eventId = event.getAttribute('data-event');
+        document.querySelectorAll('.event-row[data-event]').forEach(row => {
+            row.addEventListener('click', () => {
+                const eventId = row.getAttribute('data-event');
                 const data = eventData[eventId];
+                if (!data) return;
 
-                // Show event details
+                // Toggle active
+                const wasActive = row.classList.contains('active');
+                document.querySelectorAll('.event-row').forEach(r => r.classList.remove('active'));
+
                 const detailsSection = document.getElementById('eventDetails');
-                const titleElement = document.getElementById('eventDetailsTitle');
-                const textElement = document.getElementById('eventDetailsText');
 
-                titleElement.textContent = data.title;
-                textElement.textContent = data.description;
+                if (wasActive) {
+                    detailsSection.classList.remove('active');
+                    return;
+                }
+
+                row.classList.add('active');
+                document.getElementById('eventDetailsText').textContent = data.description;
                 detailsSection.classList.add('active');
 
-                // Scroll to details section
+                // Insert details after the clicked row
+                row.after(detailsSection);
                 detailsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
         });
