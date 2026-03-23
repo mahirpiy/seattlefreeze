@@ -21,7 +21,6 @@
             background: linear-gradient(135deg, #e8f4f8 0%, #d4e8f0 50%, #c5dce6 100%);
             min-height: 100vh;
             padding: 40px 20px;
-            padding-bottom: 120px;
             color: #00022C;
         }
 
@@ -289,83 +288,6 @@
             margin-top: 0;
         }
 
-        /* Footer */
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.25rem 2rem;
-            background: #00022C;
-            z-index: 1000;
-        }
-
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        footer input[type="email"] {
-            flex: 1;
-            min-width: 200px;
-            max-width: 300px;
-            padding: 0.75rem 1.25rem;
-            font-size: 1rem;
-            font-family: 'Instrument Serif', serif;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            color: #fff;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        footer input[type="email"]::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        footer input[type="email"]:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        footer button {
-            padding: 0.75rem 2rem;
-            font-size: 1rem;
-            font-family: 'Instrument Serif', serif;
-            background: #fff;
-            color: #00022C;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 400;
-            letter-spacing: 0.05em;
-            white-space: nowrap;
-        }
-
-        footer button:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-1px);
-        }
-
-        footer button:active {
-            transform: translateY(0);
-        }
-
-        .footer-disclosure {
-            width: 100%;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #fff;
-            margin-top: 0.5rem;
-        }
-
         @media (max-width: 768px) {
             .container {
                 margin-top: 70px;
@@ -431,24 +353,6 @@
                 height: 28px;
             }
 
-            footer {
-                padding: 1rem;
-            }
-
-            .footer-content {
-                gap: 0.75rem;
-            }
-
-            footer input[type="email"] {
-                min-width: 150px;
-                padding: 0.65rem 1rem;
-                font-size: 0.9rem;
-            }
-
-            footer button {
-                padding: 0.65rem 1.5rem;
-                font-size: 0.9rem;
-            }
         }
 
         @media (max-width: 400px) {
@@ -622,45 +526,6 @@
             </ul>
         </div>
     </div>
-
-    <footer>
-        <form class="footer-content" onsubmit="return false;">
-            <input type="email" placeholder="your@email.com" required>
-            <button type="submit">Join Email List</button>
-            <p class="footer-disclosure">By signing up, you agree to receive emails from Seattle Freeze. Unsubscribe
-                anytime.</p>
-        </form>
-    </footer>
-
-    <script>
-        document.querySelector('footer form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = e.target.querySelector('input[type="email"]').value;
-            const button = e.target.querySelector('button');
-
-            button.textContent = 'Joining...';
-            button.disabled = true;
-
-            try {
-                const response = await fetch('/api/subscribe', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email })
-                });
-
-                if (response.ok) {
-                    button.textContent = 'We\'ll be in touch!';
-                    e.target.querySelector('input').value = '';
-                } else {
-                    button.textContent = 'Try again';
-                    button.disabled = false;
-                }
-            } catch (error) {
-                button.textContent = 'Try again';
-                button.disabled = false;
-            }
-        });
-    </script>
 </body>
 
 </html>
